@@ -1,3 +1,6 @@
+import org.springframework.stereotype.Component;
+
+@Component
 public class StringService {
 
     public String reverse(String input) {
