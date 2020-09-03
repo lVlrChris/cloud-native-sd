@@ -9,9 +9,11 @@ import java.util.ArrayList;
 @Getter @Setter @EqualsAndHashCode
 public class AccountHolder {
 
-    private int id;
+    private long id;
     private String name;
     private ArrayList<Account> accounts;
+
+    public AccountHolder() {}
 
     public AccountHolder(String name) {
         this.name = name;

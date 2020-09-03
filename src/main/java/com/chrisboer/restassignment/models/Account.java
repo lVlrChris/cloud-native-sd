@@ -1,22 +1,21 @@
 package com.chrisboer.restassignment.models;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
+import java.util.List;
 
-@Getter @Setter @EqualsAndHashCode
 public class Account {
 
-    private int id;
+    private long id;
     private String iBAN;
     private double balance;
-    private ArrayList<AccountHolder> accountHolders;
+    private boolean isBlocked;
+    private List<AccountHolder> accountHolders;
 
-    public Account(String iBAN, AccountHolder accountHolder) {
+    public Account() {}
+
+    public Account(String iBAN) {
         this.iBAN = iBAN;
-        this.accountHolders.add(accountHolder);
+        accountHolders = new ArrayList<AccountHolder>();
     }
 
     public double addBalance(double amount) {
@@ -39,4 +38,27 @@ public class Account {
         return false;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public String getIBAN() {
+        return iBAN;
+    }
+
+    public void setIBAN(String iBAN) {
+        this.iBAN = iBAN;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
 }

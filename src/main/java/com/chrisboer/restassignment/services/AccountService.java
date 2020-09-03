@@ -1,23 +1,25 @@
 package com.chrisboer.restassignment.services;
 
 import com.chrisboer.restassignment.models.Account;
-import com.chrisboer.restassignment.models.AccountHolder;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@Service
 public class AccountService {
 
-    private ArrayList<Account> accounts;
+    private List<Account> accounts;
 
     public AccountService() {
         accounts = new ArrayList<Account>();
     }
 
-    public Account[] getAllAccounts() {
-        return (Account[]) accounts.toArray();
+    public List<Account> getAllAccounts() {
+        return accounts;
     }
     
-    public Account getAccount(int id) {
+    public Account getAccount(long id) {
         for (Account account : accounts) {
             if (account.getId() == id) {
                 return account;
@@ -27,9 +29,32 @@ public class AccountService {
         return null;
     }
 
-    public void createAccount(String iBAN, AccountHolder accountHolder) {
-        accounts.add(new Account(iBAN, accountHolder));
+    public Account createAccount(Account newAccount) {
+        if (accounts.add(newAccount)) {
+            return newAccount;
+        }
+
+        return null;
     }
 
-    
+    public Account updateAccount(Account updatedAccount, long id) {
+        for (Account account : accounts) {
+            if (account.getId() == id) {
+                accounts.set(accounts.indexOf(account), updatedAccount);
+                return updatedAccount;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean deleteAccount(long id) {
+        for (Account account : accounts) {
+            if (account.getId() == id) {
+                accounts.remove(accounts.indexOf(account));
+                return true;
+            }
+        }
+        return false;
+    }
 }
