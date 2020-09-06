@@ -1,21 +1,23 @@
 package com.chrisboer.restassignment.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
 
+@Entity
 public class Account {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(unique = true, nullable = false)
     private String iBAN;
     private double balance;
     private boolean isBlocked;
-    private List<AccountHolder> accountHolders;
+//    private List<AccountHolder> accountHolders;
 
-    public Account() {}
+    protected Account() {}
 
     public Account(String iBAN) {
         this.iBAN = iBAN;
-        accountHolders = new ArrayList<AccountHolder>();
+//        accountHolders = new ArrayList<AccountHolder>();
     }
 
     public double addBalance(double amount) {
@@ -26,17 +28,17 @@ public class Account {
         return balance -= amount;
     }
 
-    public boolean addAccountHolder(AccountHolder accountHolder) {
-        return accountHolders.add(accountHolder);
-    }
-
-    public boolean removeAccountHolder(AccountHolder accountHolder) {
-        if (accountHolders.size() > 1) {
-            return accountHolders.remove(accountHolder);
-        }
-
-        return false;
-    }
+//    public boolean addAccountHolder(AccountHolder accountHolder) {
+//        return accountHolders.add(accountHolder);
+//    }
+//
+//    public boolean removeAccountHolder(AccountHolder accountHolder) {
+//        if (accountHolders.size() > 1) {
+//            return accountHolders.remove(accountHolder);
+//        }
+//
+//        return false;
+//    }
 
     public long getId() {
         return id;
@@ -52,6 +54,10 @@ public class Account {
 
     public double getBalance() {
         return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public boolean isBlocked() {

@@ -2,7 +2,6 @@ package com.chrisboer.restassignment.controllers;
 
 import com.chrisboer.restassignment.models.AccountHolder;
 import com.chrisboer.restassignment.services.AccountHolderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +11,13 @@ import java.util.List;
 @RequestMapping("api/v1/accountholders")
 public class AccountHolderController {
 
-    @Autowired
-    private AccountHolderService accountHolderService;
+    private final AccountHolderService accountHolderService;
 
-    @GetMapping("/")
+    public AccountHolderController(AccountHolderService accountHolderService) {
+        this.accountHolderService = accountHolderService;
+    }
+
+    @GetMapping("")
     public ResponseEntity<List<AccountHolder>> getAccountHolders() {
         return ResponseEntity.ok(accountHolderService.getAllAccountHolders());
     }
@@ -25,7 +27,7 @@ public class AccountHolderController {
         return ResponseEntity.ok(accountHolderService.getAccountHolder(id));
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<AccountHolder> createAccountHolder(@RequestBody AccountHolder newAccountHolder) {
         return ResponseEntity.ok(accountHolderService.createAccountHolder(newAccountHolder));
     }
