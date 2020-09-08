@@ -1,19 +1,23 @@
 package com.chrisboer.greetingservice.services;
 
 import com.chrisboer.greetingservice.controllers.GreetingDTO;
-import com.chrisboer.greetingservice.controllers.UserDTO;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 public class GreetingService {
+
+    @Autowired
+    private UserClient userClient;
+
     @HystrixCommand(fallbackMethod = "fallbackGreet")
     public GreetingDTO greet() {
-        UserDTO result = new RestTemplate().getForEntity(
-                "http://localhost:9090/api/v1/user",
-                UserDTO.class).getBody();
-        return createGreeting(result.getName());
+//        UserDTO result = new RestTemplate().getForEntity(
+//                "http://localhost:9090/api/v1/user",
+//                UserDTO.class).getBody();
+//        return createGreeting(result.getName());
+        return createGreeting(userClient.getRandomUser().getName());
     }
 
     public GreetingDTO fallbackGreet() {
