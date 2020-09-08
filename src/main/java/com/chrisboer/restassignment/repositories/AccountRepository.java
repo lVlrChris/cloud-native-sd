@@ -5,6 +5,4 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface AccountRepository extends PagingAndSortingRepository<Account, Long> {
 
-//    List<Account> getAllAccounts();
-//    Account findById(long id);
 }

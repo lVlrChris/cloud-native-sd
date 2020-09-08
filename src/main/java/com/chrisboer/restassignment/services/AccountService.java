@@ -8,13 +8,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class AccountService {
 
-//    private List<Account> accounts;
     private final AccountRepository accountRepo;
 
     public AccountService(AccountRepository accountRepository) {
@@ -22,9 +20,10 @@ public class AccountService {
     }
 
     public List<Account> getAllAccounts() {
-        List<Account> result = new ArrayList<Account>();
-        accountRepo.findAll().forEach(result::add);
-        return result;
+//        List<Account> result = new ArrayList<Account>();
+//        accountRepo.findAll().forEach(result::add);
+        return (List<Account>)accountRepo.findAll();
+//        return result;
     }
 
     public Page<Account> getAllAccounts(int page, int size, String sortDir, String sort) {
