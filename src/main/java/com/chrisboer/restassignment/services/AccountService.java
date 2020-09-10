@@ -4,6 +4,7 @@ import com.chrisboer.restassignment.models.Account;
 import com.chrisboer.restassignment.repositories.AccountRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -20,15 +21,13 @@ public class AccountService {
     }
 
     public List<Account> getAllAccounts() {
-//        List<Account> result = new ArrayList<Account>();
-//        accountRepo.findAll().forEach(result::add);
         return (List<Account>)accountRepo.findAll();
-//        return result;
     }
 
-    public Page<Account> getAllAccounts(int page, int size, String sortDir, String sort) {
-        PageRequest pageReq = PageRequest.of(page, size, Sort.Direction.fromString(sortDir), sort);
+    public Page<Account> getAllAccounts(int page, int size, String sortDir, String sortBy) {
+        Pageable pageReq = PageRequest.of(page, size, Sort.Direction.fromString(sortDir), sortBy);
 
+        System.out.println(accountRepo.findAll(pageReq).getSize());
         return accountRepo.findAll(pageReq);
     }
     
