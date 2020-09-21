@@ -29,6 +29,6 @@ public class GreetingService {
     }
 
     private GreetingDTO createGreeting(String name) {
-        return new GreetingDTO("Hello " + name + "!\n" + "Running in role: " + role);
+        return new GreetingDTO("Hello " + name + "!  " + "Running in role: " + role);
     }
 }
