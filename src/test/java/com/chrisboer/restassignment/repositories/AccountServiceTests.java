@@ -57,15 +57,15 @@ public class AccountServiceTests {
                 new Account("asdf8"),
                 new Account("asdf9"),
                 new Account("asdf10"));
-        Page<Account> response = new PageImpl<Account>(accountList);
 
-        int page = 2;
+        int page = 0;
         int pageSize = 3;
         String sortDir = "ASC";
         String sortBy = "iban";
         Pageable pageRequest = PageRequest.of(page, pageSize, Sort.Direction.fromString(sortDir), sortBy);
-        Page<Account> expectedPage = new PageImpl<>(accountList, pageRequest, 100);
+        Page<Account> expectedPage = new PageImpl<>(accountList, pageRequest, accountList.size());
 
+        Page<Account> response = new PageImpl<Account>(accountList, pageRequest, accountList.size());
         Mockito.when(mockAccountRepository.findAll(pageRequest)).thenReturn(response);
 
         // Act
@@ -73,8 +73,8 @@ public class AccountServiceTests {
 
         // Assert
         assertThat(result).isNotEmpty();
-        assertThat(result).hasSize(pageSize);
-        assertThat(result).isEqualTo(expectedPage);
+        assertThat(result.getContent()).hasSize(pageSize);
+        assertThat(result.getContent()).isEqualTo(expectedPage.getContent());
         Mockito.verify(mockAccountRepository, Mockito.times(1)).findAll(pageRequest);
     }
 }
