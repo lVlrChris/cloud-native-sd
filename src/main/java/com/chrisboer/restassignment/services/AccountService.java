@@ -27,7 +27,7 @@ public class AccountService {
     public Page<Account> getAllAccounts(int page, int size, String sortDir, String sortBy) {
         Pageable pageReq = PageRequest.of(page, size, Sort.Direction.fromString(sortDir), sortBy);
 
-        System.out.println(accountRepo.findAll(pageReq).getSize());
+        System.out.println(accountRepo.findAll(pageReq));
         return accountRepo.findAll(pageReq);
     }
     

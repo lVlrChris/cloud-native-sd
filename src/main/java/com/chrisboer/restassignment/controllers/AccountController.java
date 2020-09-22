@@ -3,6 +3,7 @@ package com.chrisboer.restassignment.controllers;
 import com.chrisboer.restassignment.models.Account;
 import com.chrisboer.restassignment.services.AccountService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,14 @@ public class AccountController {
     @GetMapping("")
     public List<AccountDTO> getAccounts() {
         List<Account> accounts = accountService.getAllAccounts();
+        return accounts.stream()
+                .map(account -> modelMapper.map(account, AccountDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping(params = { "page", "size" })
+    public List<AccountDTO> getAccounts(@RequestParam("page") int page, @RequestParam("size") int size) {
+        Page<Account> accounts = accountService.getAllAccounts(page, size, "ASC", "iBAN");
         return accounts.stream()
                 .map(account -> modelMapper.map(account, AccountDTO.class))
                 .collect(Collectors.toList());
