@@ -21,7 +21,7 @@ public class AccountTests {
     }
 
     @And("^the client receives a list of all accounts$")
-    public void the_client_receives_server_version_body(String version) throws Throwable {
+    public void theClientReceivesListOfAllAccounts() throws Throwable {
         System.out.println("CUCUMBER TEST ---------------- AND");
     }
 
