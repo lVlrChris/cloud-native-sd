@@ -1,16 +1,13 @@
 package com.chrisboer.restassignment.models;
 
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-@Getter @Setter @EqualsAndHashCode
+@Entity @EqualsAndHashCode
 public class AccountHolder {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +21,15 @@ public class AccountHolder {
         this.name = name;
     }
 
-//    public void addAccount(Account account) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    //    public void addAccount(Account account) {
 //        accounts.add(account);
 //    }
 //

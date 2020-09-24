@@ -33,12 +33,8 @@ public class AccountHolderController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletedAccount(@PathVariable("id")long id) {
-        if (accountHolderService.deleteAccountHolder(id)) {
-            return ResponseEntity.ok("Account holder deleted.");
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public void deletedAccount(@PathVariable("id")long id) {
+        accountHolderService.deleteAccountHolder(id);
     }
 
 }

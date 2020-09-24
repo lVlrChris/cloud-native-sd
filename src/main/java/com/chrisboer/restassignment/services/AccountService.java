@@ -14,40 +14,39 @@ import java.util.List;
 @Service
 public class AccountService {
 
-    private final AccountRepository accountRepo;
+    private final AccountRepository repo;
 
     public AccountService(AccountRepository accountRepository) {
-        this.accountRepo = accountRepository;
+        this.repo = accountRepository;
     }
 
     public List<Account> getAllAccounts() {
-        return (List<Account>)accountRepo.findAll();
+        return (List<Account>) repo.findAll();
     }
 
     public Page<Account> getAllAccounts(int page, int size, String sortDir, String sortBy) {
         Pageable pageReq = PageRequest.of(page, size, Sort.Direction.fromString(sortDir), sortBy);
 
-        System.out.println(accountRepo.findAll(pageReq));
-        return accountRepo.findAll(pageReq);
+        return repo.findAll(pageReq);
     }
     
     public Account getAccount(long id) {
-        return accountRepo.findById(id).orElseThrow(EntityNotFoundException::new);
+        return repo.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     public Account createAccount(Account newAccount) {
-        return accountRepo.save(newAccount);
+        return repo.save(newAccount);
     }
 
     public Account updateAccount(Account updatedAccount, long id) {
-        Account toUpdate = accountRepo.findById(id).orElseThrow(EntityNotFoundException::new);
+        Account toUpdate = repo.findById(id).orElseThrow(EntityNotFoundException::new);
         toUpdate.setIBAN(updatedAccount.getIBAN());
         toUpdate.setBalance(updatedAccount.getBalance());
         toUpdate.setBlocked(updatedAccount.isBlocked());
-        return accountRepo.save(toUpdate);
+        return repo.save(toUpdate);
     }
 
     public void deleteAccount(long id) {
-        accountRepo.deleteById(id);
+        repo.deleteById(id);
     }
 }

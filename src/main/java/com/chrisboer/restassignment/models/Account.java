@@ -1,8 +1,10 @@
 package com.chrisboer.restassignment.models;
 
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 
-@Entity
+@Entity @EqualsAndHashCode
 public class Account {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

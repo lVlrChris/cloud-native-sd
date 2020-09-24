@@ -1,7 +1,7 @@
-package com.chrisboer.restassignment.repositories;
+package com.chrisboer.restassignment.services;
 
 import com.chrisboer.restassignment.models.Account;
-import com.chrisboer.restassignment.services.AccountService;
+import com.chrisboer.restassignment.repositories.AccountRepository;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +13,7 @@ import org.springframework.data.domain.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -80,5 +81,53 @@ public class AccountServiceTests {
         Mockito.verify(mockAccountRepository, Mockito.times(1)).findAll(pageRequest);
     }
 
+    @Test
+    public void testCreateCorrectAccount() {
+        // Arrange
+        Account correctAccount = new Account("iban123");
 
+        Mockito.when(mockAccountRepository.save(Mockito.any(Account.class))).thenReturn(correctAccount);
+
+        // Act
+        Account result = accountService.createAccount(correctAccount);
+
+        // Assert
+        assertThat(result).isNotNull();
+        assertThat(result).isEqualTo(correctAccount);
+        Mockito.verify(mockAccountRepository, Mockito.times(1)).save(correctAccount);
+    }
+
+    @Test
+    public void testUpdateAccount() {
+        // Arrange
+        Account originalAccount = new Account("originaliban");
+        originalAccount.setBalance(3.5d);
+        Optional<Account> optionalObject = Optional.of(originalAccount);
+
+        Account updatedAccount = new Account("updatediban");
+        updatedAccount.setBalance(5.7d);
+        updatedAccount.setBlocked(true);
+
+        Mockito.when(mockAccountRepository.findById(Mockito.anyLong())).thenReturn(optionalObject);
+        Mockito.when(mockAccountRepository.save(Mockito.any(Account.class))).thenAnswer(i -> i.getArguments()[0]);
+        // Act
+        Account result = accountService.updateAccount(updatedAccount, 0);
+
+        // Assert
+        assertThat(result).isNotNull();
+        assertThat(result).isEqualTo(updatedAccount);
+        Mockito.verify(mockAccountRepository, Mockito.times(1)).save(Mockito.any(Account.class));
+    }
+
+    @Test
+    public void testDeleteAccount() {
+        // Arrange
+        long accountId = 3L;
+
+        // Act
+        accountService.deleteAccount(accountId);
+
+        // Assert
+        Mockito.verify(mockAccountRepository, Mockito.times(1)).deleteById(accountId);
+    }
 }
