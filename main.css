@@ -1,0 +1,24 @@
+.signup {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+
+.form-signup input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signup input[type="password"] {
+    margin-bottom: 30px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/* .klantgegevens {
+    width: 100%;
+    max-width: 800px;
+    margin-left: 2rem;
+    padding: 20px;
+} */
